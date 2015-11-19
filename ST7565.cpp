@@ -45,7 +45,7 @@ const uint8_t pagemap[] = { 3, 2, 1, 0, 7, 6, 5, 4 };
 const extern uint8_t PROGMEM font[];
 
 // the memory buffer for the LCD
-uint8_t st7565_buffer[1024] = { 
+uint8_t st7565_buffer[1024] = {
 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
@@ -393,8 +393,8 @@ void ST7565::st7565_init(void) {
   pinMode(cs, OUTPUT);
 
   // toggle RST low to reset; CS low so it'll listen to us
-  if (cs > 0)
-    digitalWrite(cs, LOW);
+  //if (cs > 0)
+  //digitalWrite(cs, LOW);
 
   digitalWrite(rst, LOW);
   _delay_ms(500);
@@ -438,10 +438,28 @@ void ST7565::st7565_init(void) {
 }
 
 inline void ST7565::spiwrite(uint8_t c) {
-#ifndef ST75657_HSPI
-    shiftOut(sid, sclk, MSBFIRST, c);
+#ifdef ST7565_HSPI
+  digitalWrite(cs, LOW);
+    SPI.begin(cs);
+    SPI.setBitOrder(MSBFIRST);
+    SPI.setClockSpeed(4000000); //Serial Clock Cycle tCYS = 250ns --> 4MHz
+    SPI.setDataMode(SPI_MODE0); //Data read on rising edge
+    SPI.transfer(c);
+    SPI.end();
+  digitalWrite(cs, HIGH);
+#elif ST7565_HSPI1
+  digitalWrite(cs, LOW);
+    SPI1.begin(cs);
+    SPI1.setBitOrder(MSBFIRST);
+    SPI1.setClockSpeed(4000000); //Serial Clock Cycle tCYS = 250ns --> 4MHz
+    SPI1.setDataMode(SPI_MODE0); //Data read on rising edge
+    SPI1.transfer(c);
+    SPI1.end();
+  digitalWrite(cs, HIGH);
 #else
-
+  digitalWrite(cs, LOW);
+    shiftOut(sid, sclk, MSBFIRST, c);
+  digitalWrite(cs, HIGH);
 #endif
 
 
