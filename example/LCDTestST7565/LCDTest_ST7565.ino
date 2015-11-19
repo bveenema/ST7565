@@ -15,12 +15,12 @@ const static unsigned char __attribute__ ((progmem)) logo16_glcd_bmp[]={
 0x30, 0xf0, 0xf0, 0xf0, 0xf0, 0x30, 0xf8, 0xbe, 0x9f, 0xff, 0xf8, 0xc0, 0xc0, 0xc0, 0x80, 0x00,
 0x20, 0x3c, 0x3f, 0x3f, 0x1f, 0x19, 0x1f, 0x7b, 0xfb, 0xfe, 0xfe, 0x07, 0x07, 0x07, 0x03, 0x00, };
 
-// pin 2 - Serial data out (SID)
-// pin 4 - Serial clock out (SCLK)
+// pin D2 - Serial data out (SID)
+// pin D4 - Serial clock out (SCLK)
 // pin A5 - Data/Command select (RS or A0)
 // pin A4 - LCD reset (RST)
-// pin 6 - LCD chip select (CS)
-ST7565 glcd(2, 4, A5, A4, 6);
+// pin D6 - LCD chip select (CS)
+ST7565 glcd(D2, D4, A5, A4, D6);
 backlight backlight(BACKLIGHT_RED,BACKLIGHT_GREEN,BACKLIGHT_BLUE);
 
 void setup(){
