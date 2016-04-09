@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
   #define _BV(bit) (1<<(bit))
 #endif
 
-#include "ST7565.h"
+#include "ADAFRUIT_ST7565.h"
 
 #define ST7565_STARTBYTES 1
 
