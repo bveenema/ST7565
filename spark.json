@@ -1,6 +1,6 @@
 {
     "name": "ADAFRUIT_ST7565",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "author": "Someone <email@somesite.com>",
     "license": "GNU GENERAL PUBLIC LICENSE",
     "description": "Adafruit ST7565 Library"
